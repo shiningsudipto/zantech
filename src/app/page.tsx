@@ -3,6 +3,7 @@ import Navbar from "../components/shared/Navbar";
 import HeroSlider from "./_components/HeroSlider";
 import Link from "next/link";
 import { Menu } from "lucide-react";
+import SectionTitle from "@/components/helper/SectionTitle";
 const page = () => {
   return (
     <div>
@@ -32,6 +33,14 @@ const page = () => {
         <div className="col-span-9">
           <HeroSlider />
         </div>
+      </div>
+      <div className="text-center py-5 mt-10">
+        <h2 className="text-5xl font-bold ">
+          Awaken your hidden <span className="text-slate-500">Talent</span>
+        </h2>
+      </div>
+      <div className="section-gap">
+        <SectionTitle title="complete package" />
       </div>
     </div>
   );
