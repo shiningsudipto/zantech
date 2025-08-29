@@ -1,9 +1,9 @@
-import TopBar from "../components/shared/TopBar";
+import Navbar from "../components/shared/Navbar";
 
 const page = () => {
   return (
     <div>
-      <TopBar />
+      <Navbar />
     </div>
   );
 };
