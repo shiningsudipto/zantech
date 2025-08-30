@@ -2,14 +2,14 @@ import { ProductCard } from "@/types/product.type";
 import SectionTitle from "./SectionTitle";
 import Image from "next/image";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
-import { BadgePercent, Heart, Search, Shuffle } from "lucide-react";
+import { BadgePercent } from "lucide-react";
+import CardFloatingActions from "./CardFloatingActions";
 
 const SectionProducts = async () => {
   const data = await fetch(
     "https://zantechbackend.desklago.com/api/products/category/5"
   );
   const products = await data.json();
-  console.log(products);
   return (
     <div>
       <SectionTitle title="complete package" />
@@ -36,25 +36,7 @@ const SectionProducts = async () => {
                 )}
 
                 {/* Floating actions */}
-                <div
-                  className="
-              floating-actions absolute top-[40%] right-0 
-              flex flex-col bg-white p-1 rounded-md shadow-md
-              translate-x-full opacity-0 
-              transition-all duration-300 ease-in-out
-              group-hover:translate-x-0 group-hover:opacity-100
-            "
-                >
-                  <button className="hover:bg-secondary cursor-pointer bg-primary text-white p-1 hover:text-white rounded-t">
-                    <Shuffle />{" "}
-                  </button>
-                  <button className="hover:bg-secondary cursor-pointer bg-primary text-white p-1 hover:text-white">
-                    <Search />{" "}
-                  </button>
-                  <button className="hover:bg-secondary cursor-pointer bg-primary text-white p-1 hover:text-white rounded-b">
-                    <Heart />{" "}
-                  </button>
-                </div>
+                <CardFloatingActions />
               </div>
 
               <h3 className="text-xl font-medium mt-3">{product?.name}</h3>
