@@ -3,7 +3,7 @@ import Navbar from "../components/shared/Navbar";
 import HeroSlider from "./_components/HeroSlider";
 import Link from "next/link";
 import { Menu } from "lucide-react";
-import SectionTitle from "@/components/helper/SectionTitle";
+import SectionProducts from "@/components/helper/SectionProducts";
 const page = () => {
   return (
     <div>
@@ -40,7 +40,7 @@ const page = () => {
         </h2>
       </div>
       <div className="section-gap">
-        <SectionTitle title="complete package" />
+        <SectionProducts />
       </div>
     </div>
   );
