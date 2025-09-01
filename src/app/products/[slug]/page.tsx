@@ -1,8 +1,11 @@
+import { baseUrl } from "@/constants/urls";
 import { AxiosInstance } from "@/lib/axiosInstance";
 import { cn } from "@/lib/utils";
 import { ProductDetails, Response } from "@/types/product.type";
 import { CheckCircle2, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { FaWhatsapp, FaFacebookF, FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 const getLastId = (input: string): string => {
   const parts = input.split("-");
@@ -11,9 +14,10 @@ const getLastId = (input: string): string => {
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
+  // console.log(slug);
   const res = await AxiosInstance.get(`/products/${getLastId(slug)}`);
   const data = res?.data as Response<ProductDetails>;
-  console.log(data);
+  // console.log(data);
   const {
     name,
     price,
@@ -25,11 +29,26 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
     tags,
   } = data?.data;
 
-  console.log(description);
+  const productUrl = baseUrl + "/" + slug;
+  console.log(productUrl);
+
+  const fbShare = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+    productUrl
+  )}`;
+  const waShare = `https://wa.me/?text=${encodeURIComponent(
+    name + " " + productUrl
+  )}`;
+  const twitterShare = `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+    productUrl
+  )}&text=${encodeURIComponent(name)}`;
+  const linkedinShare = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+    productUrl
+  )}`;
 
   const isInStock = quantity > 0;
   const mainImage = images?.[0]?.path;
   const categoryName = categories?.[0]?.name || "Uncategorized";
+
   return (
     <main className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
@@ -101,6 +120,46 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
               >
                 <Heart className="w-5 h-5" />
               </button>
+            </div>
+            {/* share */}
+            <p>Share to:</p>
+            <div>
+              <a
+                href={fbShare}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-4 py-3 text-blue-600 bg-blue-100 dark:bg-gray-800 rounded-md hover:bg-blue-200"
+                title="Share on Facebook"
+              >
+                <FaFacebookF className="w-5 h-5" />
+              </a>
+              <a
+                href={waShare}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-4 py-3 text-green-600 bg-green-100 dark:bg-gray-800 rounded-md hover:bg-green-200"
+                title="Share on WhatsApp"
+              >
+                <FaWhatsapp className="w-5 h-5" />
+              </a>
+              <a
+                href={twitterShare}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-4 py-3 text-green-600 bg-green-100 dark:bg-gray-800 rounded-md hover:bg-green-200"
+                title="Share on WhatsApp"
+              >
+                <FaXTwitter className="w-5 h-5" />
+              </a>
+              <a
+                href={linkedinShare}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-4 py-3 text-green-600 bg-green-100 dark:bg-gray-800 rounded-md hover:bg-green-200"
+                title="Share on WhatsApp"
+              >
+                <FaLinkedin className="w-5 h-5" />
+              </a>
             </div>
           </div>
         </div>

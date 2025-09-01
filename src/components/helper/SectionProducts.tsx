@@ -39,7 +39,7 @@ const SectionProducts = async () => {
                 {/* Floating actions */}
                 <CardFloatingActions />
               </div>
-              <Link href={`/products/:${product?.slug}-${product?.id}`}>
+              <Link href={`/products/${product?.slug}-${product?.id}`}>
                 <h3 className="text-xl font-medium mt-3">{product?.name}</h3>
               </Link>
 
