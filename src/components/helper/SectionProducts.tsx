@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FaBangladeshiTakaSign } from "react-icons/fa6";
 import { BadgePercent } from "lucide-react";
 import CardFloatingActions from "./CardFloatingActions";
+import Link from "next/link";
 
 const SectionProducts = async () => {
   const data = await fetch(
@@ -26,7 +27,7 @@ const SectionProducts = async () => {
                   alt={product?.name}
                   height={300}
                   width={300}
-                  className="rounded-md aspect-square object-cover w-full"
+                  className="rounded-md aspect-square object-cover w-full transform transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {product?.discount > 0 && (
@@ -38,8 +39,9 @@ const SectionProducts = async () => {
                 {/* Floating actions */}
                 <CardFloatingActions />
               </div>
-
-              <h3 className="text-xl font-medium mt-3">{product?.name}</h3>
+              <Link href={`/products/:${product?.slug}-${product?.id}`}>
+                <h3 className="text-xl font-medium mt-3">{product?.name}</h3>
+              </Link>
 
               <p className="flex items-center text-primary gap-2">
                 From{" "}
@@ -49,7 +51,7 @@ const SectionProducts = async () => {
                 </strong>
               </p>
 
-              <div className="flex items-center border-t pt-2 mt-2 font-bold">
+              <div className="flex items-center border-t pt-3.5 mt-2 font-bold">
                 <button className="text-center w-[50%] bg-primary text-white p-2 rounded-s-md cursor-pointer hover:bg-blue-950">
                   Add to Cart
                 </button>

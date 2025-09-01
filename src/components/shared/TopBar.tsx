@@ -1,16 +1,15 @@
+import { legalLinks } from "@/constants/importantLinks";
 import Link from "next/link";
 import { FaFacebookF, FaInstagramSquare, FaLinkedin } from "react-icons/fa";
 
-const links = [
-  { label: "Terms & Conditions", href: "/terms" },
-  { label: "Privacy Policy", href: "/privacy" },
-  { label: "Refund & Returns Policy", href: "/refunds" },
-];
-
-const socials = [
-  { icon: FaFacebookF, href: "https://facebook.com" },
-  { icon: FaInstagramSquare, href: "https://instagram.com" },
-  { icon: FaLinkedin, href: "https://linkedin.com" },
+export const socials = [
+  { icon: FaFacebookF, href: "https://facebook.com", label: "facebook" },
+  {
+    icon: FaInstagramSquare,
+    href: "https://instagram.com",
+    label: "instagram",
+  },
+  { icon: FaLinkedin, href: "https://linkedin.com", label: "linkedin" },
 ];
 
 const TopBar = () => {
@@ -19,7 +18,7 @@ const TopBar = () => {
       <div className="h-[42px] section-gap text-white flex items-center justify-between text-sm uppercase">
         {/* Internal Page Links */}
         <div className="flex items-center h-full border border-slate-500 border-t-0 border-b-0 px-4 w-fit space-x-4 text-xs">
-          {links.map((link) => (
+          {legalLinks.map((link) => (
             <Link
               key={link.label}
               href={link.href}

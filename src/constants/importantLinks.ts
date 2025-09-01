@@ -5,6 +5,12 @@ export const navLinks = [
   { label: "Contact", path: "/contact" },
 ];
 
+export const legalLinks = [
+  { label: "Terms & Conditions", href: "/terms" },
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Refund & Returns Policy", href: "/refunds" },
+];
+
 export const categories = [
   {
     label: "3D Solution",

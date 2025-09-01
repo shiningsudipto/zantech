@@ -1,13 +1,11 @@
 import { categories } from "@/constants/importantLinks";
-import Navbar from "../components/shared/Navbar";
-import HeroSlider from "./_components/HeroSlider";
+import HeroSlider from "../components/module/home/HeroSlider";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import SectionProducts from "@/components/helper/SectionProducts";
 const page = () => {
   return (
-    <div>
-      <Navbar />
+    <main>
       {/* hero section */}
       <div className="section-gap grid grid-cols-12 gap-16">
         <div className="col-span-3 flex flex-col">
@@ -42,7 +40,7 @@ const page = () => {
       <div className="section-gap">
         <SectionProducts />
       </div>
-    </div>
+    </main>
   );
 };
 
