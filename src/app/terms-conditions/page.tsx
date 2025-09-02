@@ -58,7 +58,7 @@ const terms: Term[] = [
 
 const page = () => {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
+    <div className="section-gap px-6 py-12">
       {/* Page Title */}
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
         Terms and Conditions

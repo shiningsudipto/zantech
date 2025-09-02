@@ -39,7 +39,7 @@ const privacyPolicy: PolicySection[] = [
 
 const page = () => {
   return (
-    <main className="max-w-5xl mx-auto px-6 py-12">
+    <main className="section-gap px-6 py-12">
       {/* Page Title */}
       <h1 className="text-4xl font-bold text-center text-gray-800 mb-10">
         Privacy Policy
