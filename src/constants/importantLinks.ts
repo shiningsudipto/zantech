@@ -7,7 +7,7 @@ export const navLinks = [
 
 export const legalLinks = [
   { label: "Terms & Conditions", href: "/terms-conditions" },
-  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Privacy Policy", href: "/privacy-policy" },
   { label: "Refund & Returns Policy", href: "/refunds" },
 ];
 
