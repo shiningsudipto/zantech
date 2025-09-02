@@ -1,8 +1,9 @@
+import SectionProducts from "@/components/helper/SectionProducts";
 import Share from "@/components/helper/Share";
 import { baseUrl } from "@/constants/urls";
 import { AxiosInstance } from "@/lib/axiosInstance";
 import { cn } from "@/lib/utils";
-import { ProductDetails, Response } from "@/types/product.type";
+import { ProductCard, ProductDetails, Response } from "@/types/product.type";
 import { CheckCircle2, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
@@ -17,6 +18,11 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const res = await AxiosInstance.get(`/products/${getLastId(slug)}`);
   const data = res?.data as Response<ProductDetails>;
   // console.log(data);
+  const response = await AxiosInstance.get(
+    `/products/category/${data?.data?.categories[0].id}`
+  );
+  const relatedProducts = response?.data as Response<ProductCard[]>;
+  console.log({ relatedProducts });
   const {
     name,
     price,
@@ -35,8 +41,8 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const categoryName = categories?.[0]?.name || "Uncategorized";
 
   return (
-    <main className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <main className="section-gap">
+      <div className="py-12 md:py-20">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left Column: Product Image */}
           <div className="flex justify-center items-start">
@@ -140,6 +146,12 @@ const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
             </div>
           </div>
         )}
+      </div>
+      <div>
+        <SectionProducts
+          title="related products"
+          categoryId={categories?.[0]?.id}
+        />
       </div>
     </main>
   );

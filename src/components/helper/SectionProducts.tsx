@@ -6,14 +6,20 @@ import { BadgePercent } from "lucide-react";
 import CardFloatingActions from "./CardFloatingActions";
 import Link from "next/link";
 
-const SectionProducts = async () => {
+const SectionProducts = async ({
+  title,
+  categoryId,
+}: {
+  title: string;
+  categoryId: number;
+}) => {
   const data = await fetch(
-    "https://zantechbackend.desklago.com/api/products/category/5"
+    `https://zantechbackend.desklago.com/api/products/category/${categoryId}`
   );
   const products = await data.json();
   return (
     <div>
-      <SectionTitle title="complete package" />
+      <SectionTitle title={title} />
       <div className="grid grid-cols-4 gap-10 my-10">
         {products?.data?.map((product: ProductCard) => {
           return (

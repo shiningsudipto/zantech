@@ -38,7 +38,7 @@ const page = () => {
         </h2>
       </div>
       <div className="section-gap">
-        <SectionProducts />
+        <SectionProducts title="complete package" categoryId={5} />
       </div>
     </main>
   );
