@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/shared/Navbar";
-import Footer from "@/components/shared/Footer";
 import { Toaster } from "@/components/ui/sonner";
 
 // Lato
@@ -25,9 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${lato.variable} antialiased`}>
-        <Navbar />
         {children}
-        <Footer />
         <Toaster />
       </body>
     </html>

@@ -33,7 +33,9 @@ const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
               <CardFloatingActions />
             </div>
             <Link href={`/products/${product?.slug}-${product?.id}`}>
-              <h3 className="text-xl font-medium mt-3">{product?.name}</h3>
+              <h3 className="text-xl font-medium mt-3 hover:text-primary">
+                {product?.name}
+              </h3>
             </Link>
 
             <p className="flex items-center text-primary gap-2">

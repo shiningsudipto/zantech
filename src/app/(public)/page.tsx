@@ -1,5 +1,5 @@
 import { categories } from "@/constants/importantLinks";
-import HeroSlider from "../components/module/home/HeroSlider";
+import HeroSlider from "../../components/module/home/HeroSlider";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import SectionProducts from "@/components/helper/SectionProducts";
