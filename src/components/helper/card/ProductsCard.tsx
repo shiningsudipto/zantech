@@ -4,6 +4,7 @@ import { BadgePercent } from "lucide-react";
 import Link from "next/link";
 import { ProductCard, Response } from "@/types/product.type";
 import CardFloatingActions from "./CardFloatingActions";
+import AddToCart from "@/components/events/AddToCart";
 
 const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
   return (
@@ -47,9 +48,7 @@ const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
             </p>
 
             <div className="flex items-center border-t pt-3.5 mt-2 font-bold">
-              <button className="text-center w-[50%] bg-primary text-white p-2 rounded-s-md cursor-pointer hover:bg-blue-950">
-                Add to Cart
-              </button>
+              <AddToCart product={product} />
               <button className="text-center w-[50%] bg-secondary text-white p-2 rounded-e-md cursor-pointer hover:bg-red-700">
                 Buy Now
               </button>
