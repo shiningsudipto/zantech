@@ -10,6 +10,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { categories, navLinks } from "@/constants/importantLinks";
+import Cart from "./Cart";
 
 const Navbar = () => {
   return (
@@ -85,7 +86,7 @@ const Navbar = () => {
           <Link href="/sign-in" className="uppercase">
             Login
           </Link>
-          <ShoppingCart />
+          <Cart />
         </div>
       </div>
     </nav>

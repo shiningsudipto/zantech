@@ -28,11 +28,20 @@
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
+  /* color */
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-dark-100: var(--primary-dark-100);
+  --color-primary-dark-200: var(--primary-dark-200);
+  --color-primary-light-100: var(--primary-light-100);
+  --color-primary-light-200: var(--primary-light-200);
+  --color-secondary: var(--secondary);
   --color-popover-foreground: var(--popover-foreground);
+  --color-secondary-dark-100: var(--secondary-dark-100);
+  --color-secondary-dark-200: var(--secondary-dark-200);
+  --color-secondary-light-100: var(--secondary-light-100);
+  --color-secondary-light-200: var(--secondary-light-200);
+  --color-secondary-foreground: var(--secondary-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
@@ -51,9 +60,17 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: #000f7c;
-  --primary-foreground: oklch(0.985 0 0);
+  --primary-dark-100: #000c63;
+  --primary-dark-200: #00094a;
+  --primary-light-100: #1a2789;
+  --primary-light-200: #333f96;
+  --primary-foreground: #fff;
   --secondary: #e22d2d;
-  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-dark-100: #cb2929;
+  --secondary-dark-200: #9e1f1f;
+  --secondary-light-100: #e54242;
+  --secondary-light-200: #e85757;
+  --secondary-foreground: #fff;
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -117,6 +134,19 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer theme {
+  :root {
+    --primary-dark-100: #000c63;
+    --primary-dark-200: #00094a;
+    --primary-light-100: #1a2789;
+    --primary-light-200: #333f96;
+    --secondary-dark-100: #cb2929;
+    --secondary-dark-200: #9e1f1f;
+    --secondary-light-100: #e54242;
+    --secondary-light-200: #e85757;
   }
 }
 
