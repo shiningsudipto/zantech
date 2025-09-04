@@ -82,7 +82,7 @@ const Navbar = () => {
 
         {/* Auth + Cart */}
         <div className="justify-end flex items-center gap-4">
-          <Link href="/login" className="uppercase">
+          <Link href="/sign-in" className="uppercase">
             Login
           </Link>
           <ShoppingCart />
