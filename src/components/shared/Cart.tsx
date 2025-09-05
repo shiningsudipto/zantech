@@ -22,13 +22,17 @@ const Cart = () => {
     incrementQuantity,
     decrementQuantity,
     totalPrice,
+    totalProducts,
   } = useCartStore();
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="secondary">
+        <button className="flex items-center relative cursor-pointer">
+          <p className="absolute -top-2.5 -right-3.5 bg-primary text-white rounded-full px-1 font-semibold text-sm">
+            {totalProducts}
+          </p>
           <ShoppingCart />
-        </Button>
+        </button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
