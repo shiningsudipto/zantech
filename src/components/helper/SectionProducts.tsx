@@ -1,6 +1,11 @@
-import { AxiosInstance } from "@/lib/axiosInstance";
 import SectionTitle from "./SectionTitle";
-import ProductsCard from "./card/ProductsCard";
+import { Suspense } from "react";
+import CardLoading from "./card/CardLoading";
+import LoadSectionProducts from "./LoadSectionProducts";
+
+const FallbackCard = Array.from({ length: 8 }).map((_, i) => (
+  <CardLoading key={i} />
+));
 
 const SectionProducts = async ({
   title,
@@ -9,14 +14,14 @@ const SectionProducts = async ({
   title: string;
   categoryId: number;
 }) => {
-  const res = await AxiosInstance.get(`/products/category/${categoryId}`);
-  const products = res?.data;
-  // console.log(products);
-
   return (
     <div>
       <SectionTitle title={title} />
-      <ProductsCard products={products} />
+      <Suspense
+        fallback={<div className="grid gap-10 my-10">{FallbackCard}</div>}
+      >
+        <LoadSectionProducts categoryId={categoryId} />
+      </Suspense>
     </div>
   );
 };

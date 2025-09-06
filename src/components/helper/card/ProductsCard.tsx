@@ -8,13 +8,15 @@ import AddToCart from "@/components/events/AddToCart";
 
 const ProductsCard = ({
   products,
-  inRow,
+  className,
 }: {
   products: Response<ProductCard[]>;
-  inRow?: number;
+  className?: string;
 }) => {
   return (
-    <div className={`grid grid-cols-${inRow || 4} gap-10 my-10`}>
+    <div
+      className={`grid gap-10 my-10 ${className ? className : "grid-cols-4"}`}
+    >
       {products?.data?.map((product) => {
         return (
           <div
