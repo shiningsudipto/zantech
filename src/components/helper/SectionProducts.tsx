@@ -11,7 +11,7 @@ const SectionProducts = async ({
 }) => {
   const res = await AxiosInstance.get(`/products/category/${categoryId}`);
   const products = res?.data;
-  console.log(products);
+  // console.log(products);
 
   return (
     <div>
