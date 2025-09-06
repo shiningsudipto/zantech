@@ -1,4 +1,3 @@
-import { Search, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import TopBar from "./TopBar";
@@ -11,6 +10,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { categories, navLinks } from "@/constants/importantLinks";
 import Cart from "./Cart";
+import SearchBar from "./SearchBar";
 
 const Navbar = () => {
   return (
@@ -72,14 +72,7 @@ const Navbar = () => {
         </div>
 
         {/* Search */}
-        <div className="relative">
-          <input
-            type="text"
-            className="rounded-full h-11 border ps-4 pe-10 min-w-[350px]"
-            placeholder="Query here..."
-          />
-          <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
-        </div>
+        <SearchBar />
 
         {/* Auth + Cart */}
         <div className="justify-end flex items-center gap-4">

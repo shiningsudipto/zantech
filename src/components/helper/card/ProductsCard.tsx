@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ProductCard, Response } from "@/types/product.type";
 import CardFloatingActions from "./CardFloatingActions";
 import AddToCart from "@/components/events/AddToCart";
+import CardLoading from "./CardLoading";
 
 const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
   return (
@@ -56,6 +57,7 @@ const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
           </div>
         );
       })}
+      <CardLoading />
     </div>
   );
 };

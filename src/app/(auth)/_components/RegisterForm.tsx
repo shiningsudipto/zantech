@@ -11,7 +11,7 @@ const RegisterForm = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     console.log("Registration Credentials:", {
       fullName,
