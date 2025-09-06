@@ -14,57 +14,57 @@ export const legalLinks = [
 export const categories = [
   {
     label: "3D Solution",
-    path: "/categories/3d-solution",
+    path: "/products?category=3d-solution",
     desc: "Tools, printers, and materials for 3D prototyping.",
   },
   {
     label: "Accessories",
-    path: "/categories/accessories",
+    path: "/products?category=accessories",
     desc: "Cables, adapters, and essential add-ons.",
   },
   {
     label: "Battery",
-    path: "/categories/battery",
+    path: "/products?category=battery",
     desc: "Rechargeable and non-rechargeable power sources.",
   },
   {
     label: "Basic Components",
-    path: "/categories/basic-components",
+    path: "/products?category=basic-components",
     desc: "Resistors, capacitors, transistors, and more.",
   },
   {
     label: "Display",
-    path: "/categories/display",
+    path: "/products?category=display",
     desc: "LCD, LED, OLED, and touch screen modules.",
   },
   {
     label: "Microcontroller",
-    path: "/categories/microcontroller",
+    path: "/products?category=microcontroller",
     desc: "Arduino, Raspberry Pi, ESP32, and other boards.",
   },
   {
     label: "Project Kits",
-    path: "/categories/project-kits",
+    path: "/products?category=project-kits",
     desc: "Ready-to-use electronics and robotics kits.",
   },
   {
     label: "Robotics",
-    path: "/categories/robotics",
+    path: "/products?category=robotics",
     desc: "Motors, chassis, and robotics development kits.",
   },
   {
     label: "Sensor",
-    path: "/categories/sensor",
+    path: "/products?category=sensor",
     desc: "Temperature, motion, distance, and other sensors.",
   },
   {
     label: "Starter Kits",
-    path: "/categories/starter-kits",
+    path: "/products?category=starter-kits",
     desc: "Beginner-friendly electronics and learning kits.",
   },
   {
     label: "Wireless",
-    path: "/categories/wireless",
+    path: "/products?category=wireless",
     desc: "Wi-Fi, Bluetooth, and RF communication modules.",
   },
 ];

@@ -17,6 +17,7 @@ const page = async ({
     max_price: params.get("max_price") || "",
     page: params.get("page") || "1",
     limit: params.get("limit") || "10",
+    category: params.get("category") || "",
   };
 
   let data: Response<ProductCard[]> | null = null;
@@ -42,7 +43,7 @@ const page = async ({
         {errorMessage ? (
           <div className="text-red-500 text-center py-10">{errorMessage}</div>
         ) : data && data.data?.length > 0 ? (
-          <ProductsCard products={data} />
+          <ProductsCard products={data} inRow={3} />
         ) : (
           <div className="text-gray-500 text-center py-10">
             No products found.

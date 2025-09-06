@@ -46,9 +46,14 @@ const LoadProduct = ({ productsLength }: { productsLength: number }) => {
     if (loaderRef.current) observer.observe(loaderRef.current);
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (loaderRef.current) observer.unobserve(loaderRef.current);
     };
-  }, [productsLength, limit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productsLength]);
+
+  // hide loader if no more products
+  // if (productsLength < limit) return null;
 
   return (
     <div ref={loaderRef} className="py-6 flex justify-center">

@@ -6,14 +6,20 @@ import { ProductCard, Response } from "@/types/product.type";
 import CardFloatingActions from "./CardFloatingActions";
 import AddToCart from "@/components/events/AddToCart";
 
-const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
+const ProductsCard = ({
+  products,
+  inRow,
+}: {
+  products: Response<ProductCard[]>;
+  inRow?: number;
+}) => {
   return (
-    <div className="grid grid-cols-3 gap-10 my-10">
+    <div className={`grid grid-cols-${inRow || 4} gap-10 my-10`}>
       {products?.data?.map((product) => {
         return (
           <div
             key={product?.id}
-            className="group relative p-4 shadow-md rounded-md flex flex-col justify-between"
+            className="group relative p-4 shadow-md rounded-md flex flex-col justify-between border border-gray-100"
           >
             <div className="relative">
               <Image
