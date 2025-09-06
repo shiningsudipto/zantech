@@ -42,7 +42,7 @@ const Filter = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("min_price", value[0].toString());
     params.set("max_price", (value[1] * 250).toString());
-    router.push(`?${params.toString()}`);
+    router.push(`?${params.toString()}`, { scroll: false });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 

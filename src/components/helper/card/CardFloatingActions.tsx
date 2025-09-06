@@ -6,25 +6,27 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import AddToWishlist from "@/components/actions/AddToWishlist";
+import { ProductCard } from "@/types/product.type";
 
-const actions = [
-  {
-    id: "compare",
-    icon: <Shuffle />,
-    tooltip: "Compare",
-  },
-  {
-    id: "quick-view",
-    icon: <Search />,
-    tooltip: "Quick View",
-  },
-  {
-    id: "wishlist",
-    icon: <Heart />,
-    tooltip: "Add to Wishlist",
-  },
-];
-const CardFloatingActions = () => {
+const CardFloatingActions = ({ product }: { product: ProductCard }) => {
+  const actions = [
+    {
+      id: "compare",
+      icon: <Shuffle />,
+      tooltip: "Compare",
+    },
+    {
+      id: "quick-view",
+      icon: <Search />,
+      tooltip: "Quick View",
+    },
+    {
+      id: "wishlist",
+      icon: <AddToWishlist product={product} />,
+      tooltip: "Add to Wishlist",
+    },
+  ];
   return (
     <div
       className="
@@ -38,7 +40,7 @@ const CardFloatingActions = () => {
       {actions.map((action, index) => (
         <Tooltip key={action.id}>
           <TooltipTrigger asChild>
-            <button
+            <div
               className={`
             hover:bg-secondary cursor-pointer bg-primary text-white p-1 hover:text-white 
             ${index === 0 ? "rounded-t" : ""}
@@ -47,7 +49,7 @@ const CardFloatingActions = () => {
               onClick={() => console.log(`${action.tooltip} clicked`)}
             >
               {action.icon}
-            </button>
+            </div>
           </TooltipTrigger>
           <TooltipContent side="left">
             <p>{action.tooltip}</p>
