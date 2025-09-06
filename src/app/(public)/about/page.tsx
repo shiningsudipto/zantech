@@ -1,17 +1,7 @@
-import Image from "next/image";
-
 export default function AboutPage() {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-12">
-      {/* Logo */}
-      <div className="flex flex-col justify-center items-center">
-        <Image
-          src="/zantech-logo.png"
-          alt="Zantech Logo"
-          width={120}
-          height={60}
-          priority
-        />
+    <div className="section-gap py-10">
+      <div className="flex flex-col justify-center items-center mb-10">
         {/* Title */}
         <h1 className="text-4xl font-bold text-center text-gray-800 mt-4">
           About Zantech
