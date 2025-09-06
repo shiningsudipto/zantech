@@ -8,7 +8,7 @@ import AddToCart from "@/components/events/AddToCart";
 
 const ProductsCard = ({ products }: { products: Response<ProductCard[]> }) => {
   return (
-    <div className="grid grid-cols-4 gap-10 my-10">
+    <div className="grid grid-cols-3 gap-10 my-10">
       {products?.data?.map((product) => {
         return (
           <div
