@@ -1,11 +1,4 @@
-import {
-  CircuitBoard,
-  Github,
-  Twitter,
-  Linkedin,
-  MapPin,
-  Mail,
-} from "lucide-react";
+import { MapPin, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { socials } from "./TopBar";

@@ -1,5 +1,5 @@
 "use client";
-import { Heart, Search, Shuffle } from "lucide-react";
+import { Search, Shuffle } from "lucide-react";
 
 import {
   Tooltip,

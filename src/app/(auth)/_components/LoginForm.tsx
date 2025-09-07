@@ -3,10 +3,15 @@
 import { useState } from "react";
 import { CircuitBoard, Mail, Lock, LogIn } from "lucide-react";
 import Link from "next/link";
+import { useAuthStore } from "@/stores/authStore";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { user } = useAuthStore();
+
+  console.log(user);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

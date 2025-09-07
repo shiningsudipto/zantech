@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { Suspense } from "react";
 
 // Lato
 const lato = Lato({
@@ -23,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${lato.variable} antialiased`}>
-        {children}
+        <Suspense>{children}</Suspense>
         <Toaster />
       </body>
     </html>

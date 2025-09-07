@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Slider } from "../ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "../ui/label";
@@ -47,7 +47,7 @@ const Filter = () => {
   }, [value]);
 
   return (
-    <div className="">
+    <Suspense fallback={null}>
       <div className="space-y-2">
         <p className="text-lg font-bold">Filter by Price</p>
         <div className="flex items-center justify-between gap-2 font-semibold">
@@ -74,7 +74,7 @@ const Filter = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Suspense>
   );
 };
 

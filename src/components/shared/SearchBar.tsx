@@ -1,7 +1,7 @@
 "use client";
 import { Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const SearchBar = () => {
   const router = useRouter();
@@ -32,16 +32,18 @@ const SearchBar = () => {
   }, [query]);
 
   return (
-    <div className="relative">
-      <input
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        type="text"
-        className="rounded-full h-11 border ps-4 pe-10 min-w-[350px]"
-        placeholder="Query here..."
-      />
-      <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
-    </div>
+    <Suspense fallback={null}>
+      <div className="relative">
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          type="text"
+          className="rounded-full h-11 border ps-4 pe-10 min-w-[350px]"
+          placeholder="Query here..."
+        />
+        <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500" />
+      </div>
+    </Suspense>
   );
 };
 
