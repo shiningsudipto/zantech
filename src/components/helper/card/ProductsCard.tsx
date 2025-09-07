@@ -14,9 +14,7 @@ const ProductsCard = ({
   className?: string;
 }) => {
   return (
-    <div
-      className={`grid gap-10 my-10 ${className ? className : "grid-cols-4"}`}
-    >
+    <div className={`grid gap-10 ${className ? className : "grid-cols-4"}`}>
       {products?.data?.map((product) => {
         return (
           <div

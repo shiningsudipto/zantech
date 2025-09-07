@@ -24,7 +24,7 @@ const page = async ({
   };
 
   return (
-    <div className="section-gap py-20 grid grid-cols-10 gap-5">
+    <div className="section-gap py-20 grid grid-cols-10 gap-10">
       <div className="col-span-2">
         <Filter />
       </div>

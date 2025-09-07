@@ -15,7 +15,7 @@ const SectionProducts = async ({
   categoryId: number;
 }) => {
   return (
-    <div>
+    <div className="space-y-10">
       <SectionTitle title={title} />
       <Suspense
         fallback={<div className="grid gap-10 my-10">{FallbackCard}</div>}

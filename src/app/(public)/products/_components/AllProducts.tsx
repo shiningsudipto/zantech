@@ -24,7 +24,7 @@ const AllProducts = async ({
   return (
     <div>
       {errorMessage ? (
-        <div className="text-red-500 text-center py-10">{errorMessage}</div>
+        <div className="text-red-500 text-center">{errorMessage}</div>
       ) : data && data.data?.length > 0 ? (
         <ProductsCard products={data} className="grid-cols-3" />
       ) : (
