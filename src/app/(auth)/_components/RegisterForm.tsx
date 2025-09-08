@@ -1,25 +1,26 @@
 "use client";
 
-import { useState } from "react";
 import { CircuitBoard, LogIn, User, Phone, MapPin, Mail } from "lucide-react";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import InputField from "@/components/form/Input";
 
-// A simple form component for registration
+type TUserRegister = {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+};
+
 const RegisterForm = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TUserRegister>();
 
-  const handleSubmit = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    console.log("Registration Credentials:", {
-      fullName,
-      email,
-      phone,
-      address,
-    });
-    // API call for registration logic would go here
+  const onSubmit = (data: TUserRegister) => {
+    console.log("Registration Credentials:", data);
   };
 
   return (
@@ -34,6 +35,7 @@ const RegisterForm = () => {
           <span className="text-3xl font-bold">Zantech</span>
         </Link>
       </div>
+
       <h2 className="text-3xl font-bold text-center mb-2">
         Join Our Community
       </h2>
@@ -41,54 +43,54 @@ const RegisterForm = () => {
         Create your account to unlock exclusive features.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="relative">
-          <User className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-            className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
-          />
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <InputField
+          label="Full Name"
+          icon={User}
+          type="text"
+          placeholder="Full Name"
+          register={register("name", { required: "Full name is required" })}
+          error={errors.name}
+        />
 
-        <div className="relative">
-          <Mail className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
-          <input
-            type="email"
-            placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
-          />
-        </div>
+        <InputField
+          label="Email"
+          icon={Mail}
+          type="email"
+          placeholder="Email Address"
+          register={register("email", {
+            required: "Email is required",
+            pattern: { value: /^\S+@\S+$/i, message: "Enter a valid email" },
+          })}
+          error={errors.email}
+        />
 
-        <div className="relative">
-          <Phone className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            required
-            className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
-          />
-        </div>
+        <InputField
+          label="Phone"
+          icon={Phone}
+          type="tel"
+          placeholder="Phone Number"
+          register={register("phone", {
+            required: "Phone is required",
+            minLength: { value: 11, message: "Phone must be 11 digits" },
+            maxLength: { value: 11, message: "Phone must be 11 digits" },
+            pattern: { value: /^[0-9]+$/, message: "Only numbers are allowed" },
+          })}
+          error={errors.phone}
+        />
 
-        <div className="relative">
-          <MapPin className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
-          <input
-            type="text"
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-            className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
-          />
-        </div>
+        <InputField
+          label="Password"
+          icon={MapPin}
+          type="password"
+          placeholder="Password"
+          register={register("password", {
+            required: "Password is required",
+            minLength: { value: 8, message: "At least 8 characters" },
+            maxLength: { value: 11, message: "Max 11 characters" },
+          })}
+          error={errors.password}
+        />
 
         <button
           type="submit"
@@ -111,4 +113,5 @@ const RegisterForm = () => {
     </div>
   );
 };
+
 export default RegisterForm;
