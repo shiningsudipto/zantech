@@ -1,9 +1,23 @@
 "use client";
 
-import { CircuitBoard, LogIn, User, Phone, MapPin, Mail } from "lucide-react";
+import {
+  CircuitBoard,
+  LogIn,
+  User,
+  Phone,
+  MapPin,
+  Mail,
+  Loader2Icon,
+} from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import InputField from "@/components/form/Input";
+import { usePostQuery } from "@/hooks/usePost";
+import { Response } from "@/types/product.type";
+import { TUserRes } from "@/types/auth.type";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 type TUserRegister = {
   name: string;
@@ -13,14 +27,26 @@ type TUserRegister = {
 };
 
 const RegisterForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TUserRegister>();
 
+  const { mutate: RegisterFN, isPending } = usePostQuery<
+    Response<TUserRes>,
+    TUserRegister
+  >("/users/register", {
+    onSuccess: (res) => {
+      toast.success(res?.message);
+      router.push("/sign-in");
+    },
+  });
+
   const onSubmit = (data: TUserRegister) => {
     console.log("Registration Credentials:", data);
+    RegisterFN(data);
   };
 
   return (
@@ -92,13 +118,20 @@ const RegisterForm = () => {
           error={errors.password}
         />
 
-        <button
+        <Button
+          disabled={isPending}
+          variant={"primary"}
+          size={"xl"}
+          width={"full"}
           type="submit"
-          className="w-full bg-[#000f7c] hover:bg-[#000a5a] text-white font-bold py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
         >
-          <LogIn className="w-5 h-5 mr-2" />
-          Sign Up
-        </button>
+          {isPending ? (
+            <Loader2Icon className="animate-spin" />
+          ) : (
+            <LogIn size={18} className="mr-2" />
+          )}
+          Sign Un
+        </Button>
       </form>
 
       <p className="text-center text-sm text-gray-600 mt-8">

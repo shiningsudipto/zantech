@@ -9,6 +9,13 @@ import { Response } from "@/types/product.type";
 import { TUserRes } from "@/types/auth.type";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+import Input from "@/components/form/Input";
+
+type TLoginFormValues = {
+  email: string;
+  password: string;
+};
 
 const LoginForm = () => {
   const router = useRouter();
@@ -16,7 +23,7 @@ const LoginForm = () => {
 
   const { mutate: LoginFN, isPending } = usePostQuery<
     Response<TUserRes>,
-    { email: string; password: string }
+    TLoginFormValues
   >("/users/login", {
     onSuccess: (res) => {
       const user: TUser = {
@@ -33,18 +40,14 @@ const LoginForm = () => {
     },
   });
 
-  console.log({ isPending });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<TLoginFormValues>();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-
-    const payload = {
-      email: formData.get("email") as string,
-      password: formData.get("password") as string,
-    };
-
-    LoginFN(payload);
+  const onSubmit = (data: TLoginFormValues) => {
+    LoginFN(data);
   };
 
   return (
@@ -65,36 +68,36 @@ const LoginForm = () => {
         Enter your credentials to continue.
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="relative">
-          <Mail className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            required
-            className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
-          />
-        </div>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <Input
+          label="Email"
+          type="email"
+          placeholder="Email Address"
+          icon={Mail}
+          register={register("email", { required: "Email is required" })}
+          error={errors.email}
+        />
 
-        <div className="relative">
-          <Lock className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-            className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
-          />
-        </div>
+        {/* Password */}
+        <Input
+          label="Password"
+          type="password"
+          placeholder="Password"
+          icon={Lock}
+          register={register("password", {
+            required: "Password is required",
+            minLength: { value: 6, message: "Minimum 6 characters required" },
+          })}
+          error={errors.password}
+        />
 
         <div className="text-right">
-          <a
-            href="#"
+          <Link
+            href="/reset-password"
             className="text-sm text-gray-600 hover:text-[#000f7c] transition-colors"
           >
             Forgot Password?
-          </a>
+          </Link>
         </div>
 
         <Button
