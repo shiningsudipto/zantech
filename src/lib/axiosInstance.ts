@@ -1,23 +1,29 @@
 import axios from "axios";
 
-// Axios Interceptor Instance
 export const AxiosInstance = axios.create({
   baseURL: "https://zantechbackend.desklago.com/api",
 });
 
-// AxiosInstance.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("token");
-//     const accessToken = JSON.parse(token as string);
+AxiosInstance.interceptors.request.use(
+  (config) => {
+    // Only run on client side
+    if (typeof window !== "undefined") {
+      const auth = localStorage.getItem("auth-storage-zanTech");
+      if (auth) {
+        const parsedAuth = JSON.parse(auth);
+        const token = parsedAuth?.state?.token;
+        try {
+          if (config.headers) {
+            // Use Authorization header instead of a custom header
+            config.headers.Authorization = `Bearer ${token}`;
+          }
+        } catch (err) {
+          console.error("Invalid token format in localStorage", err);
+        }
+      }
+    }
 
-//     // If token is present, add it to request's Authorization Header
-//     if (accessToken) {
-//       if (config.headers) config.headers.token = accessToken;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     // Handle request errors here
-//     return Promise.reject(error);
-//   }
-// );
+    return config;
+  },
+  (error) => Promise.reject(error)
+);

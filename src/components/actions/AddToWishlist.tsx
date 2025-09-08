@@ -35,6 +35,25 @@ const AddToWishlist = ({ product }: { product: ProductCard }) => {
     }
   };
 
+  // const { mutate: AddToWishListFN, isPending } = usePostQuery<
+  //   Response<any>,
+  //   TWishPayload
+  // >("/wishlist", {
+  //   onSuccess: (res) => {
+  //     toast.success(res?.message);
+  //   },
+  // });
+
+  // const handleAddToWishlist = async () => {
+  //   if (user) {
+  //     const payload = {
+  //       user_id: user?.id,
+  //       product_id: product.id,
+  //     };
+  //     AddToWishListFN(payload);
+  //   }
+  // };
+
   return (
     <button onClick={handleAddToWishlist} disabled={loading}>
       <Heart className={loading ? "animate-pulse" : ""} />
