@@ -1,22 +1,50 @@
 "use client";
 
-import { useState } from "react";
-import { CircuitBoard, Mail, Lock, LogIn } from "lucide-react";
+import { CircuitBoard, Mail, Lock, LogIn, Loader2Icon } from "lucide-react";
 import Link from "next/link";
-import { useAuthStore } from "@/stores/authStore";
+import { useRouter } from "next/navigation";
+import { TUser, useAuthStore } from "@/stores/authStore";
+import { usePostQuery } from "@/hooks/usePost";
+import { Response } from "@/types/product.type";
+import { TUserRes } from "@/types/auth.type";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 const LoginForm = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const { setUser } = useAuthStore();
 
-  const { user } = useAuthStore();
+  const { mutate: LoginFN, isPending } = usePostQuery<
+    Response<TUserRes>,
+    { email: string; password: string }
+  >("/users/login", {
+    onSuccess: (res) => {
+      const user: TUser = {
+        id: res?.data?.id,
+        role: res?.data?.type,
+        name: res?.data?.name,
+        phone: res?.data?.phone,
+        email: res?.data?.email,
+      };
+      setUser(user, res?.data?.token);
+      toast.success(res?.message);
 
-  console.log(user);
+      router.push("/");
+    },
+  });
+
+  console.log({ isPending });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Login Credentials:", { email, password });
-    // API call for login logic would go here
+    const formData = new FormData(e.currentTarget);
+
+    const payload = {
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+    };
+
+    LoginFN(payload);
   };
 
   return (
@@ -31,6 +59,7 @@ const LoginForm = () => {
           <span className="text-3xl font-bold">Zantech</span>
         </Link>
       </div>
+
       <h2 className="text-3xl font-bold text-center mb-2">Welcome Back</h2>
       <p className="text-gray-600 text-center mb-8">
         Enter your credentials to continue.
@@ -41,9 +70,8 @@ const LoginForm = () => {
           <Mail className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
           <input
             type="email"
+            name="email"
             placeholder="Email Address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             required
             className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
           />
@@ -53,9 +81,8 @@ const LoginForm = () => {
           <Lock className="absolute top-1/2 left-4 -translate-y-1/2 w-5 h-5 text-gray-500" />
           <input
             type="password"
+            name="password"
             placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
             required
             className="w-full bg-gray-100 border border-gray-300 rounded-lg py-3 pl-12 pr-4 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800"
           />
@@ -70,13 +97,20 @@ const LoginForm = () => {
           </a>
         </div>
 
-        <button
+        <Button
+          disabled={isPending}
+          variant={"primary"}
+          size={"xl"}
+          width={"full"}
           type="submit"
-          className="w-full bg-[#000f7c] hover:bg-[#000a5a] text-white font-bold py-3 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
         >
-          <LogIn className="w-5 h-5 mr-2" />
+          {isPending ? (
+            <Loader2Icon className="animate-spin" />
+          ) : (
+            <LogIn size={18} className="mr-2" />
+          )}
           Sign In
-        </button>
+        </Button>
       </form>
 
       <p className="text-center text-sm text-gray-600 mt-8">

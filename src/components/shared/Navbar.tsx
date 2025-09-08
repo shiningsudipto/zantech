@@ -11,6 +11,7 @@ import {
 import { categories, navLinks } from "@/constants/importantLinks";
 import Cart from "./Cart";
 import SearchBar from "./SearchBar";
+import NavAuth from "./NavAuth";
 
 const Navbar = () => {
   return (
@@ -75,11 +76,9 @@ const Navbar = () => {
         <SearchBar />
 
         {/* Auth + Cart */}
-        <div className="justify-end flex items-center gap-4">
-          <Link href="/sign-in" className="uppercase">
-            Login
-          </Link>
+        <div className="justify-end flex items-center gap-5">
           <Cart />
+          <NavAuth />
         </div>
       </div>
     </nav>

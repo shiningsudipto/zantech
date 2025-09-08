@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type TUser = {
-  id: string;
+export type TUser = {
+  id: number;
   role: string;
   name: string;
   phone: string;
