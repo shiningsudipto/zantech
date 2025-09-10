@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import Input from "@/components/form/Input";
 
+import Cookies from "js-cookie";
+
 type TLoginFormValues = {
   email: string;
   password: string;
@@ -34,6 +36,13 @@ const LoginForm = () => {
         email: res?.data?.email,
       };
       setUser(user, res?.data?.token);
+
+      Cookies.set("token", res?.data?.token, {
+        expires: 7, // 7 days
+        secure: true, // only send over HTTPS
+        sameSite: "strict",
+      });
+
       toast.success(res?.message);
 
       router.push("/");

@@ -7,15 +7,15 @@ import { ProductCard, ProductDetails, Response } from "@/types/product.type";
 import { CheckCircle2, Heart, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
-const getLastId = (input: string): string => {
-  const parts = input.split("-");
-  return parts[parts.length - 1];
-};
+// const getLastId = (input: string): string => {
+//   const parts = input.split("-");
+//   return parts[parts.length - 1];
+// };
 
 const page = async ({ params }: { params: Promise<{ slug: string }> }) => {
   const { slug } = await params;
   // console.log(slug);
-  const res = await AxiosInstance.get(`/products/${getLastId(slug)}`);
+  const res = await AxiosInstance.get(`/products/slug/${slug}`);
   const data = res?.data as Response<ProductDetails>;
   // console.log(data);
   const response = await AxiosInstance.get(

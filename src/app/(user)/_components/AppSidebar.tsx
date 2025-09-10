@@ -24,27 +24,27 @@ const items = [
   },
   {
     title: "Orders",
-    url: "#",
+    url: "/user/orders",
     icon: Inbox,
   },
   {
-    title: "Wishlist",
-    url: "#",
+    title: "Wishlists",
+    url: "/user/wishlists",
     icon: Heart,
   },
   {
     title: "Downloads",
-    url: "#",
+    url: "/user/downloads",
     icon: Calendar,
   },
   {
     title: "Addresses",
-    url: "#",
+    url: "/user/addresses",
     icon: Search,
   },
   {
     title: "Account Details",
-    url: "#",
+    url: "/user/settings",
     icon: Settings,
   },
 ];

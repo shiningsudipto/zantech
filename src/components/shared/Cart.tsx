@@ -51,7 +51,7 @@ const Cart = () => {
                   />
                 </div>
                 <div>
-                  <Link href={`/products/${product?.slug}-${product?.id}`}>
+                  <Link href={`/products/${product?.slug}`}>
                     {product?.name.slice(0, 28)}...
                   </Link>
                   <div className="flex items-center gap-4">

@@ -1,39 +1,38 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export const addToWishList = async <T extends object>(
+type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+
+export const callAPI = async <T extends object>(
   endpoint: string,
-  data: T,
+  method: HttpMethod,
+  data?: T,
   revalidate?: string
 ): Promise<any> => {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
-    console.log({ token });
-    // zustand dependent on localstorage, server component does not have access to the local storage
-    // const token = useAuthStore.getState().token;
 
-    console.log(token);
     const response = await fetch(
       `https://zantechbackend.desklago.com/api${endpoint}`,
       {
-        method: "POST",
+        method: method,
         headers: {
           "Content-Type": "application/json",
           Authorization: token ? `Bearer ${token}` : "",
         },
-        body: JSON.stringify(data),
-        cache: "no-store",
+        body: method !== "GET" ? JSON.stringify(data) : undefined,
       }
     );
 
-    // if (!response.ok) {
-    //   throw new Error(`❌ Failed with status ${response.status}`);
-    // }
+    if (!response.ok) {
+      console.log(`❌ Failed with status ${response.status}`);
+    }
 
     const result = await response.json();
-    console.log(result);
+    console.log("response: ", result);
 
     if (revalidate) {
       revalidatePath(revalidate);
@@ -41,7 +40,6 @@ export const addToWishList = async <T extends object>(
 
     return result;
   } catch (error) {
-    console.log("addToWishList error:", error);
-    throw error;
+    console.log("error:", error);
   }
 };

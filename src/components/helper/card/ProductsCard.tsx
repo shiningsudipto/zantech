@@ -39,7 +39,7 @@ const ProductsCard = ({
               {/* Floating actions */}
               <CardFloatingActions product={product} />
             </div>
-            <Link href={`/products/${product?.slug}-${product?.id}`}>
+            <Link href={`/products/${product?.slug}`}>
               <h3 className="text-xl font-medium mt-3 hover:text-primary">
                 {product?.name}
               </h3>

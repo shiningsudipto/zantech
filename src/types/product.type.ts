@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ProductCard {
   id: number;
   name: string;
@@ -15,7 +16,13 @@ export interface Response<T> {
   status: number;
   message: string;
   data: T;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  errors: any;
+}
+export interface TError {
+  success: boolean;
+  status: number;
+  message: string;
+  data: null;
   errors: any;
 }
 
