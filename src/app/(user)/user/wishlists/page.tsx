@@ -1,7 +1,14 @@
-const page = () => {
+"use client";
+import { useAuthStore } from "@/stores/authStore";
+import WishLists from "../../_components/WishLists";
+
+const page = async () => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { user } = useAuthStore();
+
   return (
     <div>
-      <p>Hello, page!</p>
+      <WishLists id={user?.id as number} />
     </div>
   );
 };
