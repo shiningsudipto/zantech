@@ -9,10 +9,12 @@ export const handleAsync = async <T extends { message?: string }>(
     if (res?.message) {
       toast.success(res.message);
     }
+    // console.log({ res });
     return res;
   } catch (err) {
     const error = err as TError;
     toast.error(error?.message || "Something went wrong");
+    // console.log({ err });
     return undefined;
   }
 };
