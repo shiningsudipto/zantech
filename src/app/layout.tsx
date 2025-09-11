@@ -3,6 +3,7 @@ import { Lato } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Suspense } from "react";
+import "sweetalert2/src/sweetalert2.scss";
 
 // Lato
 const lato = Lato({

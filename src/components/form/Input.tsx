@@ -20,8 +20,12 @@ const Input = ({
   ...rest
 }: InputFieldProps) => {
   return (
-    <div className="relative">
-      {label && <label htmlFor={label}>{label}</label>}
+    <div className="relative space-y-2">
+      {label && (
+        <p>
+          <label htmlFor={label}>{label}</label>
+        </p>
+      )}
       {Icon && (
         <Icon
           className={`absolute ${
@@ -33,7 +37,9 @@ const Input = ({
         id={label}
         {...register}
         {...rest}
-        className={`w-full bg-gray-100 border rounded-lg py-3 pl-12 pr-4 outline-none transition-all duration-300 text-gray-800 
+        className={`w-full bg-gray-100 border rounded-lg py-3 ${
+          Icon ? "pl-12 pr-4" : "px-4"
+        } outline-none transition-all duration-300 text-gray-800 
           ${
             error
               ? "border-red-500 focus:ring-red-500"
