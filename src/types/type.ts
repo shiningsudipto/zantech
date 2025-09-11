@@ -26,3 +26,22 @@ export interface TAddress {
   created_at: string;
   updated_at: string;
 }
+
+export interface TOrder {
+  user_name: string;
+  user_phone: string;
+  user_email: string;
+  order_id: number;
+  invoice_code: string;
+  status: string;
+  total_amount: string;
+  order_placed_date: string;
+  products: TOrderProductInfo[];
+}
+
+export interface TOrderProductInfo {
+  product_id: number;
+  name: string;
+  slug: string;
+  image: string;
+}
