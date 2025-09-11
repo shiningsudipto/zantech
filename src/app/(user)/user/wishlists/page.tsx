@@ -1,15 +1,16 @@
-"use client";
-import { useAuthStore } from "@/stores/authStore";
+import { Response } from "@/types/product.type";
 import WishLists from "../../_components/WishLists";
+import { TWishlist } from "@/types/type";
+import { callAPI } from "@/services";
+import { Suspense } from "react";
 
 const page = async () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const { user } = useAuthStore();
-
+  const response = (await callAPI("/wishlist", "GET")) as Response<TWishlist[]>;
+  console.log(response);
   return (
-    <div>
-      <WishLists id={user?.id as number} />
-    </div>
+    <Suspense>
+      <WishLists data={response?.data} />
+    </Suspense>
   );
 };
 

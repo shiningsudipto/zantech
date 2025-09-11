@@ -8,7 +8,7 @@ type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 export const callAPI = async <T extends object>(
   endpoint: string,
   method: HttpMethod,
-  data?: T,
+  data?: T | null,
   revalidate?: string
 ): Promise<any> => {
   try {
@@ -27,19 +27,24 @@ export const callAPI = async <T extends object>(
       }
     );
 
-    if (!response.ok) {
-      console.log(`❌ Failed with status ${response.status}`);
-    }
-
     const result = await response.json();
-    console.log("response: ", result);
 
-    if (revalidate) {
-      revalidatePath(revalidate);
+    if (!response.ok) {
+      const apiError = new Error(result?.message || "Request failed");
+      (apiError as any).details = result;
+      throw apiError;
     }
+    if (response.ok) {
+      if (revalidate) {
+        revalidatePath(revalidate);
+      }
+    }
+
+    console.log("response: ", result);
 
     return result;
   } catch (error) {
     console.log("error:", error);
+    throw error;
   }
 };
