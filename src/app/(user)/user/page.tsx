@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const FallbackCard = (
   <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-10 my-10">
-    {Array.from({ length: 8 }).map((_, i) => (
+    {Array.from({ length: 4 }).map((_, i) => (
       <CardLoading key={i} />
     ))}
   </div>

@@ -1,16 +1,23 @@
-import { Response } from "@/types/product.type";
-import WishLists from "../../_components/WishLists";
-import { TWishlist } from "@/types/type";
-import { callAPI } from "@/services";
 import { Suspense } from "react";
+import WishlistSection from "../../_components/WishlistSection";
+import CardLoading from "@/components/helper/card/CardLoading";
+
+const FallbackCard = (
+  <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 my-10">
+    {Array.from({ length: 4 }).map((_, i) => (
+      <CardLoading key={i} />
+    ))}
+  </div>
+);
 
 const page = async () => {
-  const response = (await callAPI("/wishlist", "GET")) as Response<TWishlist[]>;
-  console.log(response);
   return (
-    <Suspense>
-      <WishLists data={response?.data} />
-    </Suspense>
+    <div className="p-6">
+      <h2 className="text-2xl font-bold mb-6">My Wishlist</h2>
+      <Suspense fallback={FallbackCard}>
+        <WishlistSection />
+      </Suspense>
+    </div>
   );
 };
 

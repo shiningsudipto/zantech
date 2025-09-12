@@ -32,51 +32,48 @@ const WishLists = ({ data }: { data: TWishlist[] }) => {
   }
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">My Wishlist</h2>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {data.map((item) => (
-          <div
-            key={item.product_id}
-            className="group border rounded-2xl shadow-sm hover:shadow-lg transition transform hover:scale-[1.02] bg-white overflow-hidden"
-          >
-            <div className="relative w-full h-52">
-              <Image
-                src={"/demo.jpg"} // TODO
-                alt={item.name}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform"
-              />
-              <button
-                onClick={() => removeFromWishList(item?.product_id)}
-                className="absolute top-3 right-3 p-2 rounded-full bg-white shadow hover:bg-red-50 transition"
-              >
-                <Heart className="w-5 h-5 text-red-500" fill="#fb2c36" />
-              </button>
-            </div>
-            <div className="p-4 space-y-2">
-              <Link href={`/products/${item?.product_slug}`}>
-                <h3 className="text-xl font-medium mt-3 hover:text-primary">
-                  {item?.name}
-                </h3>
-              </Link>
-              <div className="flex items-center gap-3">
-                <span className="text-lg font-bold text-green-600">
-                  ${item.price - item.discount}
-                </span>
-                {item.discount > 0 && (
-                  <span className="text-sm line-through text-gray-400">
-                    ${item.price}
-                  </span>
-                )}
-              </div>
-              <button className="text-center w-full rounded-md bg-secondary text-white p-2 cursor-pointer hover:bg-red-700">
-                Buy Now
-              </button>
-            </div>
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {data.map((item) => (
+        <div
+          key={item.product_id}
+          className="group border rounded-2xl shadow-sm hover:shadow-lg transition transform hover:scale-[1.02] bg-white overflow-hidden"
+        >
+          <div className="relative w-full h-52">
+            <Image
+              src={"/demo.jpg"} // TODO
+              alt={item.name}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform"
+            />
+            <button
+              onClick={() => removeFromWishList(item?.product_id)}
+              className="absolute top-3 right-3 p-2 rounded-full bg-white shadow hover:bg-red-50 transition"
+            >
+              <Heart className="w-5 h-5 text-red-500" fill="#fb2c36" />
+            </button>
           </div>
-        ))}
-      </div>
+          <div className="p-4 space-y-2">
+            <Link href={`/products/${item?.product_slug}`}>
+              <h3 className="text-xl font-medium mt-3 hover:text-primary">
+                {item?.name}
+              </h3>
+            </Link>
+            <div className="flex items-center gap-3">
+              <span className="text-lg font-bold text-green-600">
+                ${item.price - item.discount}
+              </span>
+              {item.discount > 0 && (
+                <span className="text-sm line-through text-gray-400">
+                  ${item.price}
+                </span>
+              )}
+            </div>
+            <button className="text-center w-full rounded-md bg-secondary text-white p-2 cursor-pointer hover:bg-red-700">
+              Buy Now
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
