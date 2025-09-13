@@ -45,3 +45,11 @@ export interface TOrderProductInfo {
   slug: string;
   image: string;
 }
+
+export interface TUserInfo {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  address: string | null;
+}
