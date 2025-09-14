@@ -1,7 +1,8 @@
 import { callAPI } from "@/services";
 import { Response } from "@/types/product.type";
 import { TStats } from "@/types/type";
-import { ShoppingBag, Heart, MapPin, DollarSign } from "lucide-react";
+import { ShoppingBag, Heart, MapPin } from "lucide-react";
+import { FaBangladeshiTakaSign } from "react-icons/fa6";
 const DashboardStats = async () => {
   const response = (await callAPI(
     "/users/dashboard",
@@ -38,8 +39,8 @@ const DashboardStats = async () => {
     },
     {
       title: "Total Spent",
-      value: `$${stats.total_spent}`,
-      icon: <DollarSign className="w-6 h-6 text-[#FE4A61]" />,
+      value: `${stats.total_spent}`,
+      icon: <FaBangladeshiTakaSign className="w-6 h-6 text-[#FE4A61]" />,
       color: "bg-[#FE4A61]",
     },
   ];

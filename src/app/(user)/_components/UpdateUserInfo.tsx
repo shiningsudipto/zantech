@@ -29,6 +29,7 @@ const UpdateUserInfo = ({ info }: { info: TUserInfo }) => {
     <div className="absolute top-0 right-0">
       <button
         onClick={() => setUpdateInfoModalOpen(true)}
+        style={{ borderRadius: "8px" }}
         className="bg-primary text-white p-1 rounded-md hover:bg-secondary cursor-pointer m-2"
       >
         <SquarePen />
