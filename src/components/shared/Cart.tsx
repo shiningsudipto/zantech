@@ -80,9 +80,9 @@ const Cart = () => {
               {totalPrice} <FaBangladeshiTakaSign />{" "}
             </p>
           </div>
-          <Button type="button" variant="primary">
+          <Link href={"/checkout"} className="primary-btn text-center">
             Checkout
-          </Button>
+          </Link>
           <Button
             onClick={() => clearCart()}
             type="submit"

@@ -37,7 +37,7 @@ const LoginForm = () => {
       };
       setUser(user, res?.data?.token);
 
-      Cookies.set("token", res?.data?.token, {
+      Cookies.set("tokenZan", res?.data?.token, {
         expires: 7, // 7 days
         secure: true, // only send over HTTPS
         sameSite: "strict",

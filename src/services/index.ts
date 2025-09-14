@@ -13,7 +13,8 @@ export const callAPI = async <T extends object>(
 ): Promise<any> => {
   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
+    const token = cookieStore.get("tokenZan")?.value;
+    // console.log("token", token);
 
     const response = await fetch(
       `https://zantechbackend.desklago.com/api${endpoint}`,

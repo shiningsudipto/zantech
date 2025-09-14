@@ -2,9 +2,14 @@
 import { useAuthStore } from "@/stores/authStore";
 import Link from "next/link";
 import { Button } from "../ui/button";
+import Cookies from "js-cookie";
 
 const NavAuth = () => {
   const { user, logout } = useAuthStore();
+  const handleLogout = () => {
+    Cookies.remove("tokenZan");
+    logout();
+  };
   return (
     <div className="ms-4">
       {user ? (
@@ -16,7 +21,7 @@ const NavAuth = () => {
             Profile
           </Link>
           <Button
-            onClick={() => logout()}
+            onClick={handleLogout}
             variant={"secondaryOutline"}
             size={"xl"}
           >
