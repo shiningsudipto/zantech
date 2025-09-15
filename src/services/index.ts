@@ -29,6 +29,7 @@ export const callAPI = async <T extends object>(
     );
 
     const result = await response.json();
+    // console.log(result);
 
     if (!response.ok) {
       const apiError = new Error(result?.message || "Request failed");
@@ -41,7 +42,7 @@ export const callAPI = async <T extends object>(
       }
     }
 
-    console.log("response: ", result);
+    // console.log("response: ", result);
 
     return result;
   } catch (error) {
