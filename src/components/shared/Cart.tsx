@@ -35,7 +35,7 @@ const Cart = () => {
         </button>
       </SheetTrigger>
       <SheetContent>
-        <SheetHeader>
+        <SheetHeader className="border-b">
           <SheetTitle>Shopping cart</SheetTitle>
         </SheetHeader>
         <div className="p-4 space-y-4">
@@ -80,9 +80,15 @@ const Cart = () => {
               {totalPrice} <FaBangladeshiTakaSign />{" "}
             </p>
           </div>
-          <Link href={"/checkout"} className="primary-btn text-center">
-            Checkout
-          </Link>
+          {products?.length === 0 ? (
+            <Button disabled type="submit" variant="primary">
+              Checkout
+            </Button>
+          ) : (
+            <Link href={"/checkout"} className="primary-btn text-center">
+              Checkout
+            </Link>
+          )}
           <Button
             onClick={() => clearCart()}
             type="submit"

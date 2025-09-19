@@ -14,10 +14,9 @@ export const callAPI = async <T extends object>(
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("tokenZan")?.value;
-    // console.log("token", token);
 
     const response = await fetch(
-      `https://zantechbackend.desklago.com/api${endpoint}`,
+      ` https://zantechbackend.zantechbd.com/api${endpoint}`,
       {
         method: method,
         headers: {
@@ -25,6 +24,7 @@ export const callAPI = async <T extends object>(
           Authorization: token ? `Bearer ${token}` : "",
         },
         body: method !== "GET" ? JSON.stringify(data) : undefined,
+        cache: method === "GET" ? "force-cache" : "default",
       }
     );
 
@@ -41,8 +41,6 @@ export const callAPI = async <T extends object>(
         revalidatePath(revalidate);
       }
     }
-
-    // console.log("response: ", result);
 
     return result;
   } catch (error) {

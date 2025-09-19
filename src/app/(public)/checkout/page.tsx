@@ -13,6 +13,7 @@ import Link from "next/link";
 import { callAPI } from "@/services";
 import { handleAsync } from "@/lib/asyncHandler";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type TGuestUserInfo = {
   name: string;
@@ -51,8 +52,9 @@ function increaseByFifteenPerThousand(amount: number): number {
 const bkashNumberPersonal = "01627199815";
 
 const CheckoutPage = () => {
+  const navigate = useRouter();
   const { user } = useAuthStore();
-  const { products, totalPrice, totalProducts } = useCartStore();
+  const { products, totalPrice, totalProducts, clearCart } = useCartStore();
   const [finalPrice, setFinalPrice] = useState<number>(totalPrice);
   const [coupon, setCoupon] = useState<string>("");
   const [discount, setDiscount] = useState<number | null>(null);
@@ -60,8 +62,8 @@ const CheckoutPage = () => {
   const [selectedAddress, setSelectedAddress] = useState<number>();
   const [selectedMethodId, setSelectedMethodId] = useState<number>(1);
   const [selectedAdvancePayment, setSelectedAdvancePayment] = useState<
-    string | null
-  >(null);
+    string | number
+  >(3);
   const [insideDhaka, setInsideDhaka] = useState<boolean>(true);
   const [bkashNumber, setBkashNumber] = useState("");
   const [trxId, setTrxId] = useState("");
@@ -73,6 +75,50 @@ const CheckoutPage = () => {
 
   const onSubmit = async (data: TGuestUserInfo) => {
     console.log("guest user: ", data);
+  };
+
+  const handleOrder = async () => {
+    if (user) {
+      if (!selectedAddress) {
+        return toast.info("You need to select shipping address!");
+      }
+    }
+    if (selectedAdvancePayment === "bkash") {
+      if (!bkashNumber || !trxId) {
+        return toast.info("You must enter bKash number and Transaction ID.");
+      }
+    }
+    const payload = {
+      ...(discount && { coupon_id: 3 }),
+      user_id: user?.id,
+      shipping_id: selectedAddress,
+      shipping_charge:
+        selectedMethodId === 1
+          ? insideDhaka
+            ? 70
+            : 120
+          : selectedMethodId === 2 && 0,
+      product_subtotal: totalPrice,
+      total: finalPrice,
+      payment_type: selectedAdvancePayment === "bkash" ? 2 : selectedMethodId,
+      ...(selectedAdvancePayment === "bkash" && {
+        trxed: trxId,
+        paymentphone: bkashNumber,
+      }),
+      products: products?.map((item) => ({
+        product_id: item.id,
+        quantity: item.quantity,
+      })),
+    };
+    console.log({ payload });
+    const res = await handleAsync(() =>
+      callAPI(`/orders/place-order`, "POST", payload, "/user/orders")
+    );
+    if (res?.success) {
+      clearCart();
+      navigate.push("/user/orders");
+    }
+    console.log(res);
   };
 
   const handleCoupon = async () => {
@@ -142,7 +188,7 @@ const CheckoutPage = () => {
       </h1>
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 my-10">
         <div className="w-full">
-          <h2 className="text-2xl font-bold mb-2">Shipping Information</h2>
+          <h2 className="text-2xl font-bold mb-3">Shipping Information</h2>
           {user ? (
             <div className="grid grid-cols-2 gap-5">
               {shippingAddresses?.map((item) => (
@@ -358,9 +404,9 @@ const CheckoutPage = () => {
                 <input
                   type="radio"
                   name="advancePayment"
-                  value="none"
-                  checked={selectedAdvancePayment === null}
-                  onChange={() => setSelectedAdvancePayment(null)}
+                  value={3}
+                  checked={selectedAdvancePayment === 3}
+                  onChange={() => setSelectedAdvancePayment(3)}
                   className="accent-black"
                 />
                 <span>None</span>
@@ -442,7 +488,12 @@ const CheckoutPage = () => {
               <p className="">Total Price:</p>
               <p>{Math.round(finalPrice)} TK</p>
             </div>
-            <Button variant={"primary"} width={"full"} size={"xl"}>
+            <Button
+              onClick={handleOrder}
+              variant={"primary"}
+              width={"full"}
+              size={"xl"}
+            >
               Place Order
             </Button>
           </div>

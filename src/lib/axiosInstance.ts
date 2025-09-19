@@ -2,7 +2,7 @@ import { useAuthStore } from "@/stores/authStore";
 import axios from "axios";
 
 export const AxiosInstance = axios.create({
-  baseURL: "https://zantechbackend.desklago.com/api",
+  baseURL: " https://zantechbackend.zantechbd.com/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
