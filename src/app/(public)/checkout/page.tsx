@@ -103,7 +103,9 @@ const CheckoutPage = () => {
       user_id: user ? user.id : null,
       shipping_id: user ? selectedAddress : null,
       ...(!user && {
-        ...anonymousUser,
+        user_name: anonymousUser?.name,
+        address: anonymousUser?.address,
+        userphone: anonymousUser?.phone,
       }),
       shipping_charge:
         selectedMethodId === 1
