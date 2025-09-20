@@ -29,12 +29,12 @@ export const callAPI = async <T extends object>(
     );
 
     const result = await response.json();
-    // console.log(result);
+    console.log("callAPI-result", result);
 
     if (!response.ok) {
-      const apiError = new Error(result?.message || "Request failed");
-      (apiError as any).details = result;
-      throw apiError;
+      // const apiError = new Error(result?.message || "Request failed");
+      // (apiError as any).details = result;
+      throw result;
     }
     if (response.ok) {
       if (revalidate) {
@@ -44,7 +44,7 @@ export const callAPI = async <T extends object>(
 
     return result;
   } catch (error) {
-    console.log("error:", error);
+    console.log("callAPI-error:", error);
     throw error;
   }
 };

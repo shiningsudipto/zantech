@@ -14,6 +14,7 @@ import { callAPI } from "@/services";
 import { handleAsync } from "@/lib/asyncHandler";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useAnonymousStore } from "@/stores/anonymousStore";
 
 type TGuestUserInfo = {
   name: string;
@@ -54,6 +55,7 @@ const bkashNumberPersonal = "01627199815";
 const CheckoutPage = () => {
   const navigate = useRouter();
   const { user } = useAuthStore();
+  const { anonymousUser, setUser } = useAnonymousStore();
   const { products, totalPrice, totalProducts, clearCart } = useCartStore();
   const [finalPrice, setFinalPrice] = useState<number>(totalPrice);
   const [coupon, setCoupon] = useState<string>("");
@@ -70,11 +72,19 @@ const CheckoutPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<TGuestUserInfo>();
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<TGuestUserInfo>({
+    defaultValues: {
+      name: anonymousUser?.name,
+      phone: anonymousUser?.phone,
+      address: anonymousUser?.address,
+    },
+  });
 
   const onSubmit = async (data: TGuestUserInfo) => {
-    console.log("guest user: ", data);
+    setUser(data);
+    toast.success("Guest user info updated!");
   };
 
   const handleOrder = async () => {
@@ -89,9 +99,12 @@ const CheckoutPage = () => {
       }
     }
     const payload = {
-      ...(discount && { coupon_id: 3 }),
-      user_id: user?.id,
-      shipping_id: selectedAddress,
+      coupon_id: discount ? 3 : null,
+      user_id: user ? user.id : null,
+      shipping_id: user ? selectedAddress : null,
+      ...(!user && {
+        ...anonymousUser,
+      }),
       shipping_charge:
         selectedMethodId === 1
           ? insideDhaka
@@ -110,15 +123,19 @@ const CheckoutPage = () => {
         quantity: item.quantity,
       })),
     };
-    console.log({ payload });
+    // console.log({ payload });
     const res = await handleAsync(() =>
       callAPI(`/orders/place-order`, "POST", payload, "/user/orders")
     );
+    console.log(res);
     if (res?.success) {
       clearCart();
-      navigate.push("/user/orders");
+      if (!user) {
+        navigate.push("/");
+      } else {
+        navigate.push("/user/orders");
+      }
     }
-    console.log(res);
   };
 
   const handleCoupon = async () => {
@@ -181,6 +198,12 @@ const CheckoutPage = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (anonymousUser) {
+      reset(anonymousUser);
+    }
+  }, [reset, anonymousUser]);
+
   return (
     <div className="section-gap min-h-screen">
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
@@ -188,7 +211,17 @@ const CheckoutPage = () => {
       </h1>
       <div className="grid lg:grid-cols-2 grid-cols-1 gap-10 my-10">
         <div className="w-full">
-          <h2 className="text-2xl font-bold mb-3">Shipping Information</h2>
+          <div className="flex items-center justify-between mb-5">
+            <h2 className="text-2xl font-bold">Shipping Information</h2>
+            {user && (
+              <Link
+                href={"/user/addresses"}
+                className="font-bold border py-1 px-2 rounded-md text-primary hover:text-secondary"
+              >
+                Add or Update Shipping Address
+              </Link>
+            )}
+          </div>
           {user ? (
             <div className="grid grid-cols-2 gap-5">
               {shippingAddresses?.map((item) => (
@@ -284,15 +317,20 @@ const CheckoutPage = () => {
                   })}
                   error={errors.address}
                 />
-                <Button variant={"primary"} width={"full"} size={"xl"}>
-                  Submit
+                <Button
+                  disabled={!isDirty}
+                  variant={"primary"}
+                  width={"full"}
+                  size={"xl"}
+                >
+                  Update
                 </Button>
               </form>
             </div>
           )}
         </div>
         <div className="">
-          <h2 className="text-2xl font-bold mb-3">Products:</h2>
+          <h2 className="text-2xl font-bold mb-5">Products:</h2>
           <div className="space-y-5">
             {products?.map((product) => {
               return (
@@ -309,7 +347,7 @@ const CheckoutPage = () => {
                   <div className="flex flex-col justify-between">
                     <Link
                       className="text-lg font-medium hover:text-primary"
-                      href={product?.slug}
+                      href={`/products/${product?.slug}`}
                     >
                       {product?.name}
                     </Link>
@@ -327,22 +365,24 @@ const CheckoutPage = () => {
             })}
           </div>
           {/* coupon */}
-          <div className="mt-5">
-            <label htmlFor="coupon" className="font-semibold">
-              Coupon
-            </label>
-            <div className="flex items-center gap-5 mt-3">
-              <input
-                onChange={(e) => setCoupon(e.target.value)}
-                id="coupon"
-                type="text"
-                className="w-full bg-gray-100 border rounded-lg py-3 border-gray-300 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800 px-4"
-              />
-              <Button onClick={handleCoupon} variant={"primary"} size={"xl2"}>
-                {discount ? "Applied" : "Apply"}
-              </Button>
+          {user && (
+            <div className="mt-5">
+              <label htmlFor="coupon" className="font-semibold">
+                Coupon
+              </label>
+              <div className="flex items-center gap-5 mt-3">
+                <input
+                  onChange={(e) => setCoupon(e.target.value)}
+                  id="coupon"
+                  type="text"
+                  className="w-full bg-gray-100 border rounded-lg py-3 border-gray-300 focus:ring-2 focus:ring-[#000f7c] focus:border-[#000f7c] outline-none transition-all duration-300 text-gray-800 px-4"
+                />
+                <Button onClick={handleCoupon} variant={"primary"} size={"xl2"}>
+                  {discount ? "Applied" : "Apply"}
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
           {/* Shipping Section */}
           <div className="my-5">
             <h3 className="text-lg font-semibold mb-3">Shipping</h3>

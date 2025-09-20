@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ProductCard, Response } from "@/types/product.type";
 import CardFloatingActions from "./CardFloatingActions";
 import AddToCart from "@/components/events/AddToCart";
+import BuyNow from "@/components/events/BuyNow";
 
 const ProductsCard = ({
   products,
@@ -55,9 +56,7 @@ const ProductsCard = ({
 
             <div className="flex items-center border-t pt-3.5 mt-2 font-bold">
               <AddToCart product={product} />
-              <button className="text-center w-[50%] bg-secondary text-white p-2 rounded-e-md cursor-pointer hover:bg-red-700">
-                Buy Now
-              </button>
+              <BuyNow product={product} />
             </div>
           </div>
         );
