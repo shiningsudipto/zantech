@@ -10,7 +10,14 @@ const FallbackCard = Array.from({ length: 6 }).map((_, i) => (
 const page = async ({
   searchParams,
 }: {
-  searchParams: Record<string, string>;
+  searchParams: Promise<{
+    search?: string;
+    min_price?: string;
+    max_price?: string;
+    page?: string;
+    limit?: string;
+    category?: string;
+  }>;
 }) => {
   const resolvedParams = await searchParams;
   const params = new URLSearchParams(Object.entries(resolvedParams));

@@ -1,5 +1,6 @@
 {
   "name": "zantech",
+  "homepage": "https://store.zantechbd.com",
   "version": "0.1.0",
   "private": true,
   "scripts": {
